@@ -7,11 +7,10 @@ DeviceDriver::DeviceDriver(FlashMemoryDevice* hardware) : m_hardware(hardware) {
 }
 
 int DeviceDriver::read(long address) {
-    int result = (int)(m_hardware->read(address));    
+    int result = (int)(m_hardware->read(address));
 
-    for (int i = 1; i < 5; i++) {
-        int tmp = (int)(m_hardware->read(address));
-            if (result != tmp)
+    for (int i = 1; i < readTryCnt; i++) {
+	    if (result != (int)m_hardware->read(address))
                 throw exception("Exception!!!!");        
     }
 
