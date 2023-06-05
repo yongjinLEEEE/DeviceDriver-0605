@@ -3,6 +3,7 @@
 #include "../Project13/DeviceDriver.cpp"
 
 using namespace testing;
+using namespace std;
 class DevMock : public FlashMemoryDevice
 {
 public:
@@ -18,4 +19,18 @@ TEST(TestCaseName, read5th) {
 
 	DeviceDriver dd(&dev_mock);
 	dd.read(0xaaa);
+}
+
+TEST(TestCaseName, exception) {
+	DevMock dev_mock;
+
+	EXPECT_CALL(dev_mock, read(0xaaa))
+		.WillOnce(Return(0xa))
+		.WillOnce(Return(0xa))
+		.WillOnce(Return(0xa))
+		.WillOnce(Return(0xa))
+		.WillOnce(Return(0x1));
+
+	DeviceDriver dd(&dev_mock);
+	EXPECT_THROW(dd.read(0xaaa), exception);
 }
