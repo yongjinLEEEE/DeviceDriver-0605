@@ -35,16 +35,6 @@ TEST(TestCaseName, exception) {
 	EXPECT_THROW(dd.read(0xaaa), exception);
 }
 
-TEST(TestCaseName, memCheck) {
-	DevMock dev_mock;
-
-	EXPECT_CALL(dev_mock, read(_))
-		.Times(1);
-
-	DeviceDriver dd(&dev_mock);
-	dd.write(0xaa, 0xa);
-}
-
 TEST(TestCaseName, memCheckForWrite1) {
 	DevMock dev_mock;
 
