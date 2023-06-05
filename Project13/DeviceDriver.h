@@ -10,4 +10,5 @@ public:
 protected:
     FlashMemoryDevice* m_hardware;
     int readTryCnt = 5;
+    int emptyCode = 0xFF;
 };
